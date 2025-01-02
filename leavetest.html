@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>leavetest</title>
+		<style>
+body {
+	background-color: green;
+	color: black;
+	font-family: Verdana, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.bad {
+	background-color: red;
+}
+
+.hidden {
+	display: none;
+}
+		</style>
+	</head>
+	<body>
+		<div id="mouseleave" class="hidden">
+			<p>⚠️ Mouseleave detected</p>
+		</div>
+		<div id="resize" class="hidden">
+			<p>⚠️ Resize detected</p>
+		</div>
+		<script>
+document.onmouseleave = e => {
+	document.body.classList.add("bad");
+	document.getElementById("mouseleave").classList.remove("hidden");
+};
+window.onresize = e => {
+	document.body.classList.add("bad");
+	document.getElementById("resize").classList.remove("hidden");
+}
+		</script>
+	</body>
+</html>
