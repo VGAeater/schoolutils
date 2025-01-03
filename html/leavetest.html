@@ -14,7 +14,23 @@ body {
 	font-weight: bold;
 }
 
+body::backdrop {
+    background-color: green;
+}
+
+.warning {
+	display: flex;
+}
+
+.warning input {
+	width: 24px;
+}
+
 .bad {
+	background-color: red;
+}
+
+.bad::backdrop {
 	background-color: red;
 }
 
@@ -24,20 +40,39 @@ body {
 		</style>
 	</head>
 	<body>
-		<div id="mouseleave" class="hidden">
-			<p>⚠️ Mouseleave detected</p>
+		<div id="mouseleave" class="warning hidden">
+			<p>⚠️ Mouseleave detected for&nbsp<p><p id="mouseleavetime"></p>
 		</div>
-		<div id="resize" class="hidden">
+		<div id="resize" class="warning hidden">
 			<p>⚠️ Resize detected</p>
 		</div>
+		<div class="warning">
+			<label>Fullscreen:&nbsp</label><input type="checkbox" oninput="fullscreen(this.checked);"></input>
+		</div>
 		<script>
+var mouselefttime;
+
 document.onmouseleave = e => {
 	document.body.classList.add("bad");
 	document.getElementById("mouseleave").classList.remove("hidden");
+	mouselefttime = Date.now();
 };
+
+document.onmouseenter = e => {
+	document.getElementById("mouseleavetime").innerText = ( Date.now() - mouselefttime ) / 1000 + "s";
+}
+
 window.onresize = e => {
 	document.body.classList.add("bad");
 	document.getElementById("resize").classList.remove("hidden");
+}
+
+function fullscreen(checked) {
+	if (checked)
+		document.body.requestFullscreen();
+	else
+		document.exitFullscreen();
+
 }
 		</script>
 	</body>
